@@ -23,7 +23,7 @@ Enable multiple featured images for all post types (including custom post types 
 
 * Add the featured images to any post type (post, page or even custom post types and WooCommerce products).
 
-* It is possible to use different featured images for differnt post typs. Easily you can add two new featured images for pages and four to posts, if you need it that way.
+* It is possible to use different featured images for different post types. Easily you can add two new featured images to pages and three to posts, if you need it that way.
 
 * Fully customizable output - so it's multilingual.
 
@@ -228,10 +228,6 @@ With this function call you can get the URL:
 3. Multiple Featured Images Widget
 
 == Changelog ==
-
-= 0.5.1 =
-* Added shortcode for displaying the image
-* Changed the meta key from _kdmfi_ to kdmfi_ to enable API access again
 
 = 0.5.0 =
 * Added shortcode for displaying the image
