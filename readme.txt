@@ -1,7 +1,7 @@
 === Multiple Featured Images ===
 Contributors: marcuskober
 Tags: post thumbnail, featured image, custom post type
-Donate link: https://www.amazon.de/registry/wishlist/16KTW9ZG027C8/
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTM2NGDLKR9TE
 Requires at least: 3.5
 Tested up to: 4.6.1
 Stable tag: trunk

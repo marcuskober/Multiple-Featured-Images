@@ -29,7 +29,10 @@ class KdMfiApp {
         $this->load_functions();
 
         // Add Widget
-        add_action( 'widgets_init', array( $this, 'kdmfi_widget' ) );          
+        add_action( 'widgets_init', array( $this, 'kdmfi_widget' ) );    
+
+        // Add plugin infos
+        add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
     }
 
 
@@ -139,6 +142,17 @@ class KdMfiApp {
      */
     public function get_featured_images() {
         return $this->featured_images;
+    }
+
+
+    public function plugin_row_meta( $links, $file ) {
+        $base = plugin_basename( KDMFI_PLUGIN_FILE );
+
+        if( $base == $file ) {
+            $links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTM2NGDLKR9TE" target="_blank">Donate</a>';
+        }
+
+        return $links;
     }
 
 
