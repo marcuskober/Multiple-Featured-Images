@@ -2,7 +2,7 @@
 /*
 Plugin Name: Multiple Featured Images
 Description: Enables multiple featured images for all post types. Comes with a widget for displaying the featured images.
-Version: 0.4.0
+Version: 0.4.1
 Author: Marcus Kober
 Author URI: http://www.koeln-dialog.de/
 Text Domain: kdmfi
@@ -35,7 +35,7 @@ if( !class_exists( 'KdMfi' ) ) {
 
     // Bootstrap Class
     class KdMfi {
-        public static $version = '0.4.0';
+        public static $version = '0.4.1';
         public static $prefix = 'kdmfi_';
         public static $app;
 
