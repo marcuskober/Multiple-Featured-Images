@@ -81,13 +81,21 @@ class Image_Box {
     public function meta_box_content( $post ) {
         $id = $this->args['id'];
         $desc = $this->args['desc'];
-        $image_id = '_kdmfi_'.$id;
+        $image_id_old = '_kdmfi_'.$id;
+        $image_id = 'kdmfi_'.$id;
         $title = $this->args['label_name'];
         $label_set = $this->args['label_set'];
         $label_use = $this->args['label_use'];        
         $label_remove = $this->args['label_remove'];
 
         $photo_id = get_post_meta( $post->ID, $image_id, true );
+
+        if( ! $photo_id ) {
+            $photo_id = get_post_meta( $post->ID, $image_id_old, true );
+            if( $photo_id ) {
+                update_post_meta( $post->ID, $image_id, $photo_id );                
+            }
+        }
 
         $nonce = wp_create_nonce( $id.$post->ID );
 
@@ -127,7 +135,7 @@ class Image_Box {
 
         if( wp_attachment_is_image( $photoid ) ) {
             echo wp_get_attachment_image( $photoid, 'full', false, array( 'style' => 'width:100%;height:auto;', ) );
-            update_post_meta( $postid, '_kdmfi_'.$kdmfi_id, $photoid );
+            update_post_meta( $postid, 'kdmfi_'.$kdmfi_id, $photoid );
         }
     
         wp_die();
@@ -147,6 +155,7 @@ class Image_Box {
         check_ajax_referer( $kdmfi_id.$postid, 'sec' );
 
         delete_post_meta( $postid, '_kdmfi_'.$kdmfi_id );
+        delete_post_meta( $postid, 'kdmfi_'.$kdmfi_id );
 
         echo $label_set;
 

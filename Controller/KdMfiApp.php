@@ -33,6 +33,9 @@ class KdMfiApp {
 
         // Add plugin infos
         add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
+
+        // Shortcode
+        add_shortcode( 'kdmfi_featured_image', array( $this, 'shortcode' ) );
     }
 
 
@@ -168,7 +171,15 @@ class KdMfiApp {
             $post_id = get_the_ID();
         }
 
-        $image_id = get_post_meta( $post_id, '_kdmfi_'.$kdmfi_id, true );
+        $image_id = get_post_meta( $post_id, 'kdmfi_'.$kdmfi_id, true );
+
+        // Changed from _kdmfi_ to kdmfi_ because of API Calls
+        if( !$image_id ) {
+            $image_id = get_post_meta( $post_id, '_kdmfi_'.$kdmfi_id, true );
+            if( $image_id ) {
+                update_post_meta( $post_id, 'kdmfi_'.$kdmfi_id, $image_id);
+            }
+        }
 
         return $image_id;
     }
@@ -233,6 +244,43 @@ class KdMfiApp {
         return $image_id;
     }
 
+    /**
+     * Description
+     * @param array $atts 
+     * @param string|null $content 
+     * @return string
+     */
+    public function shortcode( $atts, $content = null ) {
+        $a = shortcode_atts( array(
+            'id' => null,
+            'size' => 'full',
+            'post_id' => null,
+            'class' => 'kdmfi-featured-image',
+            'alt' => null,
+            'title' => null,
+        ), $atts, 'kdmfi_featured_image' );
+
+        if( ! $a['id'] ) {
+            return false;
+        }
+
+        $image_id = $this->get_featured_image_id( $a['id'], $a['post_id'] );
+
+        if( ! $a['alt'] ) {
+            $a['alt'] = get_the_title( $image_id );
+        }
+
+        $args = array(
+            'class' => $a['class'],
+            'alt' => $a['alt'],
+            'title' => $a['title'],
+        );
+        $image = wp_get_attachment_image( $image_id, $a['size'], false, $args );        
+
+        $image = apply_filters( 'kdmfi_shortcode_html', $image, $a, $post->ID);
+
+        return $image;
+    }
 }
 
 ?>

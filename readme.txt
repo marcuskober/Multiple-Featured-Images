@@ -3,12 +3,12 @@ Contributors: marcuskober
 Tags: post thumbnail, featured image, custom post type
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QTM2NGDLKR9TE
 Requires at least: 3.5
-Tested up to: 4.6.1
+Tested up to: 4.9.4
 Stable tag: trunk
 License: GPL3
 License URI: http://www.gnu.org/licenses/gpl.html
 
-Enables multiple featured images for all post types. Comes with a widget for displaying the featured images.
+Enables multiple featured images for all post types. Comes with a widget and a shortcode for displaying the featured images.
 
 == Description ==
 = Multiple featured images =
@@ -26,6 +26,8 @@ It enables multiple featured images for all post types and comes with a widget f
 1. Add as many featured images as you need
 1. Add the featured images to any post type (post, page or even custom post types)
 1. Fully customizable output - so it's multilingual
+1. Shortcode
+1. Widget for displaying featured images
 
 = History =
 
@@ -95,6 +97,40 @@ For expample:
             return $featured_images;
         });
 
+= How do I display the featured image? =
+
+Use one of the functions for retrieving the image. E.g. kdmfi_the_featured_image( 'featured-image-2', 'full'); or use the new widget "Multiple featured images" or the new shortcode!
+The widget can be found under Appearance -> Widgets.
+
+= How do I use the shortcode? =
+
+Shortcode usage:
+
+[kdmfi_featured_image id="featured-image-2" size="full"]
+
+Possible attributes for the shortcode:
+
+* id: the id of the featured image, e.g. featured-image-2, **requried**
+* size: the desired size, defaults to "full"
+* post_id: the ID of the post to which the featured image is assigned, defaults to the current ID
+* class: the classes for the image tag, defaults to "kdmfi-featured-image"
+* alt: the alt attribute for the image tag, defaults to the title of the used image
+* title: the title attribute for the image tag, empty by default
+
+**Filter**
+
+If you need to change the image tag created by the shortcode, please use the filter "kdmfi_shortcode_html".
+
+Example use:
+
+        add_filter( 'kdmfi_shortcode_html', function( $html, $shortcode_atts, $post_id) {
+
+            // do something
+
+            return $html;
+        }, 10, 3);
+
+The filter callback gets the image tag html, the used shortcode attributes and the ID of the post where the shortcode is used.
 
 = How do I use a different size of the featured image? =
 
@@ -140,13 +176,13 @@ With this function call you can get the URL:
 
 1. To display the featured image directly:
 
-        kdmfi_the_featured_image( $image_id, $size, $post_id ) {
+        kdmfi_the_featured_image( $image_id, $size, $post_id );
 
     Again, $size and $post_id are optional.
 
 1. To check if the post has a featured image:
 
-        kdmfi_has_featured_image( $image_id, $post_id ) {
+        kdmfi_has_featured_image( $image_id, $post_id );
 
     $post_id is optional. The function returns the id of the attachment if there's one and false if not.
 
@@ -156,6 +192,10 @@ With this function call you can get the URL:
 3. Multiple Featured Images Widget
 
 == Changelog ==
+= 0.5.0 =
+* Added shortcode for displaying the image
+* Changed the meta key from _kdmfi_ to kdmfi_ to enable API access again
+
 = 0.4.3 =
 * Backwards compatibility to PHP 5.3.10
 * Added support for translations
