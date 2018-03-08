@@ -44,13 +44,14 @@ class kdMultipleFeaturedImages {
 
         KdMfi::$app->update_id( $args['id'] );
 
-        add_filter( 'kdmfi_featured_images', function( $featured_images ) {
-            $featured_images[] = $this->newArgs;
-
-            return $featured_images;
-        });
+        add_filter( 'kdmfi_featured_images', array( $this, 'register' ) );
     }
 
+    public function register( $featured_images ) {
+        $featured_images[] = $this->newArgs;
+
+        return $featured_images;
+    }
 }
 
 ?>

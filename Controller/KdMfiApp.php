@@ -69,7 +69,7 @@ class KdMfiApp {
      */
     public function language() {
         // Internationalization
-        load_plugin_textdomain( 'kdmfi', false, plugin_basename( KDMFI_PLUGIN_PATH ).'/languages/' ); 
+        load_plugin_textdomain( 'multiple-featured-images', false, plugin_basename( KDMFI_PLUGIN_PATH ).'/languages/' ); 
     }
 
 
@@ -211,6 +211,7 @@ class KdMfiApp {
             return $fallback;
         }
 
+        $args = array();
         $image = wp_get_attachment_image( $image_id, $size, false, $args );
         return $image;
     }

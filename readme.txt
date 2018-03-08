@@ -13,6 +13,8 @@ Enables multiple featured images for all post types. Comes with a widget for dis
 == Description ==
 = Multiple featured images =
 
+> **Now compatible to PHP 5.3 again** Because of various support requests I've established compatibility to PHP 5.3 again.
+
 You need more than one featured image for posts, pages and/or custom post types? Then this plugin is for you!
 
 It enables multiple featured images for all post types and comes with a widget for displaying your additional images.
@@ -114,7 +116,7 @@ With this function call you can get the ID:
 
 With this function call you can get the URL:
 
-        kdmfi_get_featured_image_url( 'featured-image-2', 'full' );
+        kdmfi_get_featured_image_src( 'featured-image-2', 'full' );
 
 = Which functions do exist? =
 
@@ -154,6 +156,16 @@ With this function call you can get the URL:
 3. Multiple Featured Images Widget
 
 == Changelog ==
+= 0.4.3 =
+* Backwards compatibility to PHP 5.3.10
+* Added support for translations
+
+= 0.4.2 =
+* Bug fixes
+
+= 0.4.1 =
+* Bug fixes
+
 = 0.4.0 =
 * Completely rewritten; added Widget
 

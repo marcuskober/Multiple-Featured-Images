@@ -14,10 +14,10 @@ class Kdmfi_Widget extends \WP_Widget {
         $widget_ops = array(
             'classname' => 'widget_kdmfi',
             'customize_selective_refresh' => true,
-            'description' => __( 'Shows featured image of your choice', 'kdmfi' ),
+            'description' => __( 'Shows featured image of your choice', 'multiple-featured-images' ),
         );
 
-        parent::__construct( 'kdmfi_widget', __( 'Multiple featured images', 'kdmfi' ), $widget_ops );
+        parent::__construct( 'kdmfi_widget', __( 'Multiple featured images', 'multiple-featured-images' ), $widget_ops );
     }
 
 
@@ -70,12 +70,12 @@ class Kdmfi_Widget extends \WP_Widget {
         ?>
 
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'kdmfi' ); ?></label> 
+            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'multiple-featured-images' ); ?></label> 
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
         </p>
 
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'featured_image' ) ); ?>"><?php esc_attr_e( 'Featured image:', 'kdmfi' ); ?></label> 
+            <label for="<?php echo esc_attr( $this->get_field_id( 'featured_image' ) ); ?>"><?php esc_attr_e( 'Featured image:', 'multiple-featured-images' ); ?></label> 
             <select id="<?php echo $this->get_field_id('featured_image'); ?>" name="<?php echo $this->get_field_name('featured_image'); ?>">
                 <?php 
                 foreach( $featured_images as $fi ) {
@@ -90,7 +90,7 @@ class Kdmfi_Widget extends \WP_Widget {
         </p>
 
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'image_size' ) ); ?>"><?php esc_attr_e( 'Image size:', 'kdmfi' ); ?></label> 
+            <label for="<?php echo esc_attr( $this->get_field_id( 'image_size' ) ); ?>"><?php esc_attr_e( 'Image size:', 'multiple-featured-images' ); ?></label> 
             <select id="<?php echo $this->get_field_id('image_size'); ?>" name="<?php echo $this->get_field_name('image_size'); ?>">
                 <?php 
                 foreach( $image_sizes as $is ) {
