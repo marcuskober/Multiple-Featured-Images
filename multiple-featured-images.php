@@ -2,7 +2,7 @@
 /*
 Plugin Name: Multiple Featured Images
 Description: Enables multiple featured images for posts and pages. If you like my plugin, feel free to give me reward ;) <a href="http://www.amazon.de/registry/wishlist/16KTW9ZG027C8" title="Amazon Wishlist" target="_blank">Amazon Wishlist</a>
-Version: 0.2
+Version: 0.3
 Author: Marcus Kober
 Author URI: http://www.koeln-dialog.de/
 */
@@ -72,13 +72,13 @@ if( !class_exists( 'kdMultipleFeaturedImages' ) ) {
                 add_theme_support( 'post-thumbnails' );
             }
 
-            add_action( 'admin_init', array( $this, 'kd_admin_init' ) );
-            add_action( 'add_meta_boxes', array( $this, 'kd_add_meta_box' ) );
-            add_filter( 'attachment_fields_to_edit', array( $this, 'kd_add_attachment_field' ), 11, 2 );
+            add_action( 'admin_init', array( &$this, 'kd_admin_init' ) );
+            add_action( 'add_meta_boxes', array( &$this, 'kd_add_meta_box' ) );
+            add_filter( 'attachment_fields_to_edit', array( &$this, 'kd_add_attachment_field' ), 11, 2 );
 
-            add_action( 'wp_ajax_set-MuFeaImg-'.$this->id.'-'.$this->post_type, array( $this, 'kd_ajax_set_image' ) );
+            add_action( 'wp_ajax_set-MuFeaImg-'.$this->id.'-'.$this->post_type, array( &$this, 'kd_ajax_set_image' ) );
             
-            add_action( 'delete_attachment', array( $this, 'kd_delete_attachment' ) );
+            add_action( 'delete_attachment', array( &$this, 'kd_delete_attachment' ) );
 
         }        
         
@@ -300,10 +300,18 @@ if( !class_exists( 'kdMultipleFeaturedImages' ) ) {
          * @param int $post_id
          * @return string 
          */
-        public static function get_featured_image_url( $image_id, $post_type, $post_id = NULL ) {
+        public static function get_featured_image_url( $image_id, $post_type, $size = 'full', $post_id = NULL ) {
             $id = self::get_featured_image_id( $image_id, $post_type, $post_id);
+            
+            if( $size != 'full' ) {
+            	$url = wp_get_attachment_image_src( $id, $size );
+            	$url = $url[0];
+            }
+            else {
+            	$url = wp_get_attachment_url( $id );
+            }
 
-            return wp_get_attachment_url( $id );
+            return $url;
         }
         
         /**
@@ -350,16 +358,16 @@ function kd_mfi_get_featured_image_id( $image_id, $post_type, $post_id = NULL ) 
     return kdMultipleFeaturedImages::get_featured_image_id( $image_id, $post_type, $post_id );
 }
 
-function kd_mfi_get_featured_image_url( $image_id, $post_type, $post_id = NULL ) {
-    return kdMultipleFeaturedImages::get_featured_image_url( $image_id, $post_type, $post_id );
+function kd_mfi_get_featured_image_url( $image_id, $post_type, $size = 'full', $post_id = NULL ) {
+    return kdMultipleFeaturedImages::get_featured_image_url( $image_id, $post_type, $size, $post_id );
 }
 
-function kd_mfi_get_the_featured_image( $image_id, $post_type, $post_id = NULL ) {
-    return kdMultipleFeaturedImages::get_the_featured_image( $image_id, $post_type, $post_id );
+function kd_mfi_get_the_featured_image( $image_id, $post_type, $size = 'full', $post_id = NULL ) {
+    return kdMultipleFeaturedImages::get_the_featured_image( $image_id, $post_type, $size, $post_id );
 }
 
-function kd_mfi_the_featured_image( $image_id, $post_type, $post_id = NULL ) {
-    return kdMultipleFeaturedImages::the_featured_image( $image_id, $post_type, $post_id );
+function kd_mfi_the_featured_image( $image_id, $post_type, $size = 'full', $post_id = NULL ) {
+    return kdMultipleFeaturedImages::the_featured_image( $image_id, $post_type, $size, $post_id );
 }
 
 ?>
